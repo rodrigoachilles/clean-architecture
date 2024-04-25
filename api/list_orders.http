@@ -1,0 +1,28 @@
+GET http://localhost:8000/order?page=1&limit=10&sort=product_name ASC HTTP/1.1
+Host: localhost:8000
+Content-Type: application/json
+
+###
+
+GRPC localhost:50051/pb.OrderService/ListOrders
+Content-Type: application/json
+
+{
+  "page": 1,
+  "limit": 10,
+  "sort": "product_name ASC"
+}
+
+###
+
+GRAPHQL http://localhost:8080/query
+
+query listOrders {
+    listOrders(input: {page: 1, limit: 10, sort: "product_name ASC"}) {
+        ID
+        ProductName
+        Price
+        Tax
+        FinalPrice
+    }
+}

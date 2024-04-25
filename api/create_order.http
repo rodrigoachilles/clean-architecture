@@ -1,0 +1,34 @@
+POST http://localhost:8000/order HTTP/1.1
+Host: localhost:8000
+Content-Type: application/json
+
+{
+    "product_name":"http",
+    "price": 1.0,
+    "tax": 1.0
+}
+
+###
+
+GRPC localhost:50051/pb.OrderService/CreateOrder
+Content-Type: application/json
+
+{
+  "product_name": "grpc",
+  "price": 2.0,
+  "tax": 2.0
+}
+
+###
+
+GRAPHQL http://localhost:8080/query
+
+mutation createOrder {
+    createOrder(input: {ProductName: "graphql", Price: 3.0, Tax: 3.0}) {
+        ID
+        ProductName
+        Price
+        Tax
+        FinalPrice
+    }
+}
